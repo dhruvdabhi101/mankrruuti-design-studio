@@ -12,7 +12,7 @@ npm run build && npm start
 
 | What | File |
 | --- | --- |
-| Name, address, phone, WhatsApp, domain | `lib/site.ts` — change `SITE_URL` before going live |
+| Name, address, phone, WhatsApp, domain | `lib/site.ts` — `SITE_URL` is https://www.mankrruuti.com |
 | Service pages (copy, photos, FAQs) | `lib/services.ts` |
 | Home page | `app/page.tsx` |
 | Colours, type scale, spacing, easing | `app/tokens.css` |

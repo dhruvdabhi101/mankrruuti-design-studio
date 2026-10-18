@@ -17,9 +17,9 @@ Work through the steps in order. Steps 1–4 matter most and cost nothing.
 
 ## Step 1 — Put the website live (week 1)
 
-1. **Buy a domain.** `mankrruuti.com` or `mankrruuti.in`. Check spelling variants too (`mankruti.com`) and point them at the main one.
-2. **Deploy.** Push this repo to GitHub, import it at vercel.com (free tier is fine), and add the domain in Vercel → Settings → Domains.
-3. **Set the real domain in code.** Change `SITE_URL` in `lib/site.ts`, then rebuild. The canonical tags, sitemap, Open Graph data and structured data all read it.
+1. **Domain: done — `mankrruuti.com`.** Consider also buying spelling variants (`mankruti.com`) and redirecting them to it.
+2. **Deploy.** Import the GitHub repo at vercel.com (free tier is fine). In Vercel → Settings → Domains add both `www.mankrruuti.com` (primary) and `mankrruuti.com` (redirect to www), then add the DNS records Vercel shows at your domain registrar.
+3. **Domain in code: done.** `SITE_URL` in `lib/site.ts` is `https://www.mankrruuti.com`; the canonical tags, sitemap, Open Graph data and structured data all read it.
 4. **Replace the stock photos with real ones.** The Unsplash images are placeholders and are labelled as such in the footer. Real photos of the studio, finished rooms, fabric samples and the team build trust *and* rank in Google Images. Keep the same filenames in `assets/photos/` or update the imports, and rewrite the `alt` text to describe what's really in each photo, for example: *"Living room in a 3BHK flat in Vastral with sheer and blackout curtains"*.
 5. **Add opening hours** to the site and the structured data in `app/layout.tsx` (`openingHoursSpecification`) once confirmed. They're left out today because nobody has confirmed them.
 

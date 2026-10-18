@@ -1,7 +1,7 @@
 // Single source of truth for the studio's name, address and phone (NAP).
 // Google compares these against the Business Profile — keep them identical everywhere.
 
-// TODO: replace with the real domain once it is bought.
+// Canonical domain. www is primary; the bare mankrruuti.com should redirect here (set in Vercel → Domains).
 export const SITE_URL = "https://www.mankrruuti.com";
 
 export const studio = {
