@@ -12,7 +12,7 @@ export const studio = {
   phoneHref: "tel:+919723083636",
   phoneSchema: "+91-97230-83636",
   whatsapp: "919723083636",
-  email: "mrpanagar11@gmail.com",
+  email: "mankrruutidesignstudio@gmail.com",
   instagram: "https://www.instagram.com/mankrruuti_design_studio/",
   instagramHandle: "@mankrruuti_design_studio",
   mapsUrl: "https://maps.app.goo.gl/sBaKfDP6giR5Kubi8",
