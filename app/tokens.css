@@ -1,0 +1,72 @@
+/* Hallmark · macrostructure: Photographic · hero: H6 photographic fold + gallery placards
+ * theme: custom · vibe: "gallery-quiet, warm linen, deep teal, brass" · paper: oklch(97% 0.006 90) · accent: oklch(74.6% 0.087 85)
+ * display: Fraunces (SOFT 100, opsz) · body: Jost · axes: light / roman-serif / chromatic-other (brass ~85°)
+ * nav: N9 edge-aligned + menu dialog · footer: Ft1 mast-headed · studied: no · context: inferred (brand palette supplied)
+ */
+:root {
+  /* paper — warm linen, tinted toward brass */
+  --color-paper: oklch(97% 0.006 90);
+  --color-paper-2: oklch(92.5% 0.02 83);
+  --color-paper-3: oklch(88.5% 0.026 82);
+
+  /* ink — the brand teal, darkened for text */
+  --color-ink: oklch(27.5% 0.043 223);
+  --color-ink-2: oklch(43% 0.032 223);
+  --color-muted: oklch(52% 0.022 223);
+  --color-rule: oklch(84% 0.018 83);
+  --color-rule-strong: oklch(70% 0.02 83);
+
+  /* brand surfaces */
+  --color-teal: oklch(33.7% 0.054 224);
+  --color-teal-deep: oklch(25% 0.04 223);
+  --color-on-teal: oklch(95.5% 0.01 88);
+  --color-on-teal-2: oklch(81% 0.022 88);
+  --color-rule-on-teal: oklch(44% 0.04 224);
+
+  /* accent — brass, used as a signal, not a fill */
+  --color-brass: oklch(74.6% 0.087 85);
+  --color-brass-ink: oklch(50% 0.08 78);
+  --color-focus: oklch(62% 0.13 80);
+  --color-shade: oklch(18% 0.03 223);
+
+  --font-display: var(--font-fraunces), "Iowan Old Style", Georgia, serif;
+  --font-body: var(--font-jost), "Avenir Next", Avenir, "Century Gothic", sans-serif;
+
+  /* type — major third from 17px body */
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-md: 1.3125rem;
+  --text-lg: 1.65rem;
+  --text-xl: clamp(1.85rem, 1.4rem + 1.6vw, 2.6rem);
+  --text-2xl: clamp(2.3rem, 1.5rem + 3vw, 3.75rem);
+  --text-display: clamp(2.75rem, 1.6rem + 4.4vw, 5.25rem);
+
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 9rem;
+
+  --gutter: clamp(1rem, 4.5vw, 4rem);
+  --wrap: 84rem;
+  --radius-placard: 1.25rem;
+  --radius-frame: clamp(1.25rem, 3vw, 2.5rem);
+  --radius-field: 0.625rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms;
+  --dur-short: 220ms;
+  --dur-long: 420ms;
+
+  --z-raised: 10;
+  --z-sticky: 200;
+  --z-modal: 400;
+}
