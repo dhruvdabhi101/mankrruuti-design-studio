@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useRef, type CSSProperties } from "react";
+import { useRef } from "react";
 import { studio, whatsappLink } from "@/lib/site";
 import { services } from "@/lib/services";
 
@@ -32,38 +31,38 @@ export function MenuDialog() {
         </span>
       </button>
 
-      <dialog ref={ref} className="menu" aria-label="Site menu">
-        <div className="wrap menu__inner">
+      <dialog ref={ref} className="menu" aria-label="Site menu" closedby="any">
+        <div className="menu__inner">
           <div className="menu__top">
-            <Image src="/brand/logo-horizontal-light.png" alt="Mankrruuti Design Studio" width={880} height={216} />
+            <span className="menu__title">Explore</span>
             <button type="button" className="menu__close" onClick={close} autoFocus>
-              Close
+              Close <span aria-hidden="true">×</span>
             </button>
           </div>
 
           <div className="menu__body">
             <nav aria-label="Main">
               <ul className="menu__links">
-                {links.map((l, i) => (
-                  <li key={l.href} style={{ "--i": i } as CSSProperties}>
+                {links.map((l) => (
+                  <li key={l.href}>
                     <Link href={l.href} onClick={close}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
             </nav>
             <div className="menu__contact">
+              <div className="menu__contact-links">
+                <a href={studio.phoneHref}>{studio.phoneDisplay}</a>
+                <a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a>
+                <a href={studio.instagram} target="_blank" rel="noopener">Instagram</a>
+              </div>
               <address>
                 {studio.address.line1}, {studio.address.line2}
                 <br />
                 {studio.address.line3}, {studio.address.locality} {studio.address.postalCode}
               </address>
-              <a href={studio.phoneHref}>{studio.phoneDisplay}</a>
-              <a href={whatsappLink()} target="_blank" rel="noopener">WhatsApp</a>
-              <a href={studio.instagram} target="_blank" rel="noopener">Instagram</a>
             </div>
           </div>
-
-          <p className="menu__foot">{studio.tagline}</p>
         </div>
       </dialog>
     </>
