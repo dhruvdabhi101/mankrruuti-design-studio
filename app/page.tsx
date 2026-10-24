@@ -64,6 +64,7 @@ const instagram: { src: StaticImageData; alt: string }[] = [
 ];
 
 const faqs: Faq[] = [
+  { q: "What is Mankrruuti Design Studio?", a: "An interior design studio in Hathijan, Ahmedabad, open since April 2025. We plan homes in 3D and with vastu, and make curtains, blinds, sofas and upholstery to measure, so a whole home can be designed and furnished by one studio." },
   { q: "Do you design interiors according to vastu?", a: "Yes. Every layout is planned with vastu, and we say plainly where a flat’s structure makes a compromise necessary." },
   { q: "Can I see my room before work starts?", a: "Yes. You get 3D views of each room before anything is ordered or built." },
   { q: "Do you only make curtains and sofas, or full home interiors?", a: "Both — one set of curtains, one sofa, or a complete home." },
@@ -185,6 +186,10 @@ export default function Home() {
         <div className="wrap faq__grid">
           <div className="faq__head">
             <h2 id="faq-title">Questions we hear often</h2>
+            <p>
+              Still comparing studios?{" "}
+              <Link className="link link--brass" href="/blog/top-interior-design-studios-ahmedabad">Top 10 interior design studios in Ahmedabad</Link>
+            </p>
           </div>
           <FaqList faqs={faqs} />
         </div>

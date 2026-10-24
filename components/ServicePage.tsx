@@ -5,7 +5,7 @@ import { Frame } from "./Frame";
 import { FaqList } from "./FaqList";
 import { RoomsRail } from "./RoomsRail";
 import { getService, services } from "@/lib/services";
-import { SITE_URL, studio, bookVisitLink, faqJsonLd, jsonLdScript } from "@/lib/site";
+import { SITE_URL, studio, bookVisitLink, faqJsonLd, jsonLdScript, openGraphBase, orgId, breadcrumbJsonLd } from "@/lib/site";
 
 export function serviceMetadata(slug: string): Metadata {
   const s = getService(slug);
@@ -13,7 +13,7 @@ export function serviceMetadata(slug: string): Metadata {
     title: s.metaTitle,
     description: s.metaDescription,
     alternates: { canonical: `/${s.slug}` },
-    openGraph: { title: `${s.metaTitle} | ${studio.name}`, description: s.metaDescription, url: `/${s.slug}` },
+    openGraph: { ...openGraphBase, title: `${s.metaTitle} | ${studio.name}`, description: s.metaDescription, url: `/${s.slug}` },
   };
 }
 
@@ -21,20 +21,13 @@ export function ServicePage({ slug }: { slug: string }) {
   const s = getService(slug);
   const others = services.filter((x) => x.slug !== slug);
 
-  const breadcrumbs = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: s.nav, item: `${SITE_URL}/${s.slug}` },
-    ],
-  };
+  const breadcrumbs = breadcrumbJsonLd([{ name: s.nav, path: `/${s.slug}` }]);
   const serviceLd = {
     "@context": "https://schema.org",
     "@type": "Service",
     name: s.h1,
     description: s.metaDescription,
-    provider: { "@id": `${SITE_URL}/#studio` },
+    provider: { "@id": orgId },
     areaServed: { "@type": "City", name: "Ahmedabad" },
     url: `${SITE_URL}/${s.slug}`,
   };

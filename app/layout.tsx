@@ -4,7 +4,7 @@ import "./globals.css";
 import { Masthead } from "@/components/Masthead";
 import { Footer } from "@/components/Footer";
 import { WhatsAppIcon } from "@/components/Icons";
-import { SITE_URL, studio, whatsappLink, jsonLdScript } from "@/lib/site";
+import { SITE_URL, studio, whatsappLink, jsonLdScript, openGraphBase, orgId } from "@/lib/site";
 import { services } from "@/lib/services";
 
 const fraunces = Fraunces({
@@ -30,14 +30,9 @@ export const metadata: Metadata = {
     "Interior design studio in Hathijan, Ahmedabad. Home interiors planned in 3D and with vastu, custom curtains and blinds, sofas and upholstery. Call +91 97230 83636.",
   applicationName: studio.name,
   alternates: { canonical: "/" },
-  openGraph: {
-    type: "website",
-    locale: "en_IN",
-    siteName: studio.name,
-    url: "/",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: studio.name }],
-  },
+  openGraph: { ...openGraphBase, url: "/" },
   twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   formatDetection: { telephone: false },
 };
 
@@ -49,7 +44,7 @@ export const viewport: Viewport = {
 const businessJsonLd = {
   "@context": "https://schema.org",
   "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
-  "@id": `${SITE_URL}/#studio`,
+  "@id": orgId,
   name: studio.name,
   alternateName: ["Mankrruuti", "Mankruti Design Studio", "Mankruti Interiors"],
   description:
@@ -71,7 +66,10 @@ const businessJsonLd = {
     addressCountry: studio.address.country,
   },
   hasMap: studio.mapsCid,
-  areaServed: { "@type": "City", name: "Ahmedabad" },
+  areaServed: [
+    { "@type": "City", name: "Ahmedabad" },
+    ...studio.nearbyAreas.map((name) => ({ "@type": "Place", name: `${name}, Ahmedabad` })),
+  ],
   sameAs: [studio.instagram, studio.mapsCid],
   knowsAbout: ["Interior design", "Vastu", "3D visualisation", "Space planning", "Custom curtains", "Zebra blinds", "Custom sofas", "Modular furniture"],
   hasOfferCatalog: {
@@ -84,11 +82,22 @@ const businessJsonLd = {
   },
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: studio.name,
+  alternateName: studio.shortName,
+  url: SITE_URL,
+  inLanguage: "en-IN",
+  publisher: { "@id": orgId },
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={`${fraunces.variable} ${jost.variable}`}>
       <body>
-        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(businessJsonLd)} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript([businessJsonLd, websiteJsonLd])} />
         <a className="skip" href="#main">Skip to content</a>
         <Masthead />
         <main id="main">{children}</main>

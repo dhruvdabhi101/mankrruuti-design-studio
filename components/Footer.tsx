@@ -48,6 +48,7 @@ export function Footer() {
               <ul>
                 <li><a href={studio.instagram} target="_blank" rel="noopener">Instagram</a></li>
                 <li><a href={studio.mapsUrl} target="_blank" rel="noopener">Google Maps</a></li>
+                <li><Link href="/blog">Journal</Link></li>
               </ul>
             </div>
           </div>

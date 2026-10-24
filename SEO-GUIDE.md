@@ -54,10 +54,16 @@ This one profile drives most local leads. Open business.google.com and sign in w
 
 1. Go to search.google.com/search-console, add the domain and verify it. The DNS method works with any domain registrar.
 2. Submit `https://www.mankrruuti.com/sitemap.xml`.
-3. Use **URL inspection → Request indexing** for the home page and the three service pages.
+3. Use **URL inspection → Request indexing** for the home page, the three service pages and each new journal post (start with `/blog/top-interior-design-studios-ahmedabad`).
 4. Check back every 2 weeks. The **Performance** report shows which searches the site appears for. That tells you what to write about next.
 5. Do the same in Bing Webmaster Tools (it can import from Search Console in one click).
-6. Test the structured data at search.google.com/test/rich-results. LocalBusiness, FAQPage, Service and BreadcrumbList are already on the pages.
+6. Test the structured data at search.google.com/test/rich-results. LocalBusiness, WebSite, FAQPage, Service, BreadcrumbList, BlogPosting and ItemList are already on the pages.
+
+### AI search (ChatGPT, Perplexity, Gemini, Google AI Overviews)
+
+- `robots.txt` explicitly allows the AI crawlers (GPTBot, OAI-SearchBot, PerplexityBot, ClaudeBot, Google-Extended and others). Don't block them.
+- `/llms.txt` gives AI assistants a plain-text summary of the studio, services and journal. It's generated from `lib/site.ts`, `lib/services.ts` and `lib/posts.ts`, so updating those keeps it current.
+- Journal posts open with a short, direct answer (marked `speakable`) and end with an FAQ. Keep that pattern: AI engines quote the first clear answer they find.
 
 ## Step 5 — List the business everywhere, identically (weeks 2–3)
 
@@ -80,7 +86,7 @@ Add the website link and the same description to each. Keep a simple spreadsheet
 
 ## Step 6 — Content that answers what Ahmedabad homeowners search for (monthly)
 
-The three service pages target the main searches already. Next, add one useful page a month. Good topics:
+The three service pages target the main searches already, and the journal (`/blog`) has started with *Top 10 interior design studios in Ahmedabad*. Next, add one useful post a month. To add one: add an entry to `lib/posts.ts` (it feeds the journal index, sitemap and llms.txt), then create `app/blog/<slug>/page.tsx` using the first post as the template. Re-check the facts in the top-10 post every few months and bump its `updated` date. Good topics:
 
 - *Vastu tips for a 2BHK or 3BHK flat in Ahmedabad* (vastu is a strong local search)
 - *Best curtain fabrics for Ahmedabad summers* (heat, dust, west-facing rooms)

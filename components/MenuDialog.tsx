@@ -9,6 +9,7 @@ const links = [
   { href: "/", label: "Home" },
   ...services.map((s) => ({ href: `/${s.slug}`, label: s.nav })),
   { href: "/#process", label: "How a project runs" },
+  { href: "/blog", label: "Journal" },
   { href: "/#visit", label: "Visit the studio" },
 ];
 

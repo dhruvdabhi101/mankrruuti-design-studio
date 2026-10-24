@@ -20,6 +20,8 @@ export const studio = {
   mapsEmbed:
     "https://maps.google.com/maps?q=Mankrruuti%20Design%20Studio%2C%20Radhe%20Parisar%2C%20Hathijan%2C%20Ahmedabad%20382445&z=16&output=embed",
   foundingDate: "2025-04-30",
+  // Localities the studio regularly works in; used in structured data and llms.txt.
+  nearbyAreas: ["Hathijan", "Vatva", "Narol", "Isanpur", "Ramol", "Maninagar", "CTM", "Vastral"],
   address: {
     line1: "07, Radhe Parisar",
     line2: "Opposite SK Cinema, near Hathijan Circle",
@@ -39,6 +41,26 @@ export function whatsappLink(message?: string) {
 export const bookVisitLink = whatsappLink(
   "Hello Mankrruuti, I'd like to book a home visit."
 );
+
+// Every page's openGraph must spread this: Next replaces nested metadata objects rather than merging them,
+// so a page that sets its own openGraph would otherwise drop the share image and site name.
+export const ogImage = { url: "/og-image.jpg", width: 1200, height: 630, alt: studio.name };
+export const openGraphBase = { type: "website" as const, locale: "en_IN", siteName: studio.name, images: [ogImage] };
+
+export const orgId = `${SITE_URL}/#studio`;
+
+export function breadcrumbJsonLd(trail: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [{ name: "Home", path: "" }, ...trail].map((c, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: c.name,
+      item: `${SITE_URL}${c.path}`,
+    })),
+  };
+}
 
 export type Faq = { q: string; a: string };
 
