@@ -5,6 +5,7 @@ import { Frame } from "./Frame";
 import { FaqList } from "./FaqList";
 import { RoomsRail } from "./RoomsRail";
 import { getService, services } from "@/lib/services";
+import { posts } from "@/lib/posts";
 import { SITE_URL, studio, bookVisitLink, faqJsonLd, jsonLdScript, openGraphBase, orgId, breadcrumbJsonLd } from "@/lib/site";
 
 export function serviceMetadata(slug: string): Metadata {
@@ -134,6 +135,9 @@ export function ServicePage({ slug }: { slug: string }) {
             </li>
           ))}
           <li><Link href="/#visit">Visit the studio</Link></li>
+          {posts.filter((p) => p.serviceSlug === slug).map((p) => (
+            <li key={p.slug}><Link href={`/blog/${p.slug}`}>{p.title}</Link></li>
+          ))}
         </ul>
       </nav>
     </>

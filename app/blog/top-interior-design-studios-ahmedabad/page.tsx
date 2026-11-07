@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FaqList } from "@/components/FaqList";
-import { getPost, formatDate } from "@/lib/posts";
+import { getPost, formatDate, posts } from "@/lib/posts";
 import {
   SITE_URL, studio, bookVisitLink, faqJsonLd, jsonLdScript, openGraphBase, orgId, breadcrumbJsonLd, type Faq,
 } from "@/lib/site";
@@ -382,6 +382,9 @@ export default function Page() {
       <nav className="related wrap" aria-labelledby="related-title">
         <h2 id="related-title">From the studio</h2>
         <ul>
+          {posts.filter((p) => p.slug !== post.slug).map((p) => (
+            <li key={p.slug}><Link href={`/blog/${p.slug}`}>{p.title}</Link></li>
+          ))}
           <li><Link href="/interior-designer-ahmedabad">Interior design</Link></li>
           <li><Link href="/curtains-blinds-ahmedabad">Curtains &amp; blinds</Link></li>
           <li><Link href="/custom-sofa-ahmedabad">Sofas &amp; upholstery</Link></li>

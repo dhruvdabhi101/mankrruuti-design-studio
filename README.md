@@ -6,13 +6,14 @@ Next.js 16 (App Router), plain CSS, no UI library. Every page is prerendered as 
 npm install
 npm run dev      # http://localhost:3000
 npm run build && npm start
+npm run check:seo # with the production server running; optional base URL as the first argument
 ```
 
 ## Where things live
 
 | What | File |
 | --- | --- |
-| Name, address, phone, WhatsApp, domain | `lib/site.ts` — `SITE_URL` is https://www.mankrruuti.com |
+| Name, address, phone, WhatsApp, domain | `lib/site.ts` — `SITE_URL` is https://mankrruuti.com |
 | Service pages (copy, photos, FAQs) | `lib/services.ts` |
 | Home page | `app/page.tsx` |
 | Colours, type scale, spacing, easing | `app/tokens.css` |
@@ -20,6 +21,7 @@ npm run build && npm start
 | Photos | `assets/photos/` (Unsplash placeholders — replace with the studio's own work) |
 | Logos | `public/brand/` |
 | SEO: sitemap, robots, structured data | `app/sitemap.ts`, `app/robots.ts`, JSON-LD in `app/layout.tsx` and pages |
+| Journal articles | `lib/posts.ts`, `app/blog/<slug>/page.tsx`, shared layout and metadata in `components/JournalPost.tsx` |
 
 The enquiry form has no backend: it opens a prefilled WhatsApp message to the studio.
 

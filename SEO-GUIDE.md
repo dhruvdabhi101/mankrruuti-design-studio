@@ -18,8 +18,8 @@ Work through the steps in order. Steps 1–4 matter most and cost nothing.
 ## Step 1 — Put the website live (week 1)
 
 1. **Domain: done — `mankrruuti.com`.** Consider also buying spelling variants (`mankruti.com`) and redirecting them to it.
-2. **Deploy.** Import the GitHub repo at vercel.com (free tier is fine). In Vercel → Settings → Domains add both `www.mankrruuti.com` (primary) and `mankrruuti.com` (redirect to www), then add the DNS records Vercel shows at your domain registrar.
-3. **Domain in code: done.** `SITE_URL` in `lib/site.ts` is `https://www.mankrruuti.com`; the canonical tags, sitemap, Open Graph data and structured data all read it.
+2. **Deploy.** In Vercel → Settings → Domains, use `mankrruuti.com` as the primary domain and redirect `www.mankrruuti.com` to it. Add the DNS records Vercel shows at your registrar and ensure certificates cover both hosts. `next.config.ts` also permanently redirects requests reaching the app on `www` to the primary domain, preserving paths and query parameters.
+3. **Domain in code: done.** `SITE_URL` in `lib/site.ts` is `https://mankrruuti.com`; the canonical tags, sitemap, Open Graph data and structured data all read it.
 4. **Replace the stock photos with real ones.** The Unsplash images are placeholders and are labelled as such in the footer. Real photos of the studio, finished rooms, fabric samples and the team build trust *and* rank in Google Images. Keep the same filenames in `assets/photos/` or update the imports, and rewrite the `alt` text to describe what's really in each photo, for example: *"Living room in a 3BHK flat in Vastral with sheer and blackout curtains"*.
 5. **Add opening hours** to the site and the structured data in `app/layout.tsx` (`openingHoursSpecification`) once confirmed. They're left out today because nobody has confirmed them.
 
@@ -30,7 +30,7 @@ This one profile drives most local leads. Open business.google.com and sign in w
 1. **Verify ownership** if it isn't verified yet. Unverified listings rank poorly.
 2. **Business name: keep it exactly "Mankrruuti Design Studio".** Do *not* add keywords such as "Mankrruuti Interior Designer Ahmedabad". That breaks Google's rules and can get the listing suspended.
 3. **Primary category: `Interior designer`.** Then add the secondary categories that are true: `Curtain store` / `Curtain and upholstery`, `Upholstery shop`, `Furniture store`, `Mattress store`, `Home goods store`. Categories are the single biggest relevance signal.
-4. **Website:** add the new URL. Use `https://www.mankrruuti.com/?utm_source=google&utm_medium=gbp` so the clicks can be tracked later.
+4. **Website:** add the new URL. Use `https://mankrruuti.com/?utm_source=google&utm_medium=gbp` so the clicks can be tracked later.
 5. **Phone:** +91 97230 83636 — identical everywhere.
 6. **Address:** match the website exactly: *07, Radhe Parisar, Opposite SK Cinema, near Hathijan Circle, Hathijan–Mahemdavad Road, Ahmedabad, Gujarat 382445*. Check that the map pin sits on the shop, not the road.
 7. **Service area:** add Ahmedabad plus the nearby areas you actually travel to.
@@ -53,11 +53,24 @@ This one profile drives most local leads. Open business.google.com and sign in w
 ## Step 4 — Google Search Console (week 1, 20 minutes)
 
 1. Go to search.google.com/search-console, add the domain and verify it. The DNS method works with any domain registrar.
-2. Submit `https://www.mankrruuti.com/sitemap.xml`.
+2. Submit `https://mankrruuti.com/sitemap.xml`.
 3. Use **URL inspection → Request indexing** for the home page, the three service pages and each new journal post (start with `/blog/top-interior-design-studios-ahmedabad`).
 4. Check back every 2 weeks. The **Performance** report shows which searches the site appears for. That tells you what to write about next.
 5. Do the same in Bing Webmaster Tools (it can import from Search Console in one click).
 6. Test the structured data at search.google.com/test/rich-results. LocalBusiness, WebSite, FAQPage, Service, BreadcrumbList, BlogPosting and ItemList are already on the pages.
+
+### Canonical correction — 7 November 2026
+
+Live checks found that HTTPS pages on `mankrruuti.com` returned 200 but declared `www.mankrruuti.com` as canonical. The `www` host failed certificate hostname validation. The canonical origin is now the working `https://mankrruuti.com`, including the sitemap, robots sitemap pointer, social metadata and structured data.
+
+After deployment:
+
+1. Verify the home page and each service page return 200 with a single canonical matching their `https://mankrruuti.com` URL. Verify all journal entries appear in the sitemap and resolve without redirects.
+2. In Vercel Domains, confirm the primary apex domain, the `www` redirect and a valid certificate for `www`. An application redirect cannot repair TLS: certificate validation happens before the request reaches Next.js.
+3. Submit the corrected sitemap above. Inspect the apex home page, `/interior-designer-ahmedabad`, `/curtains-blinds-ahmedabad`, `/custom-sofa-ahmedabad` and the new posts; request indexing for those URLs.
+4. HTTP and `www` URLs should redirect permanently to HTTPS on the apex domain. Search Console may continue reporting those as **Page with redirect**; that is expected. **Alternate page with proper canonical tag** is also an expected exclusion for genuine duplicates, but inspect the preferred apex pages to confirm Google has selected them. Reports update after Google crawls again; deploying does not force indexing.
+
+Google documents these statuses in the [Page indexing report guide](https://support.google.com/webmasters/answer/7440203) and explains how to [consolidate duplicate URLs](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls).
 
 ### AI search (ChatGPT, Perplexity, Gemini, Google AI Overviews)
 
@@ -86,11 +99,10 @@ Add the website link and the same description to each. Keep a simple spreadsheet
 
 ## Step 6 — Content that answers what Ahmedabad homeowners search for (monthly)
 
-The three service pages target the main searches already, and the journal (`/blog`) has started with *Top 10 interior design studios in Ahmedabad*. Next, add one useful post a month. To add one: add an entry to `lib/posts.ts` (it feeds the journal index, sitemap and llms.txt), then create `app/blog/<slug>/page.tsx` using the first post as the template. Re-check the facts in the top-10 post every few months and bump its `updated` date. Good topics:
+The journal (`/blog`) now includes the studio shortlist plus guides to planning 2BHK/3BHK interiors, choosing curtains versus blinds, and buying a custom sofa. Add one useful post a month. To add one: add an entry to `lib/posts.ts` (it feeds the journal index, sitemap, related service links and llms.txt), then create `app/blog/<slug>/page.tsx` using a recent guide as the template. Use `postMetadata` and `JournalPost` from `components/JournalPost.tsx` for canonical metadata, article schema, visible FAQs and related links. Set `serviceSlug` to the relevant service page, use accurate publication/update dates, and update the `/blog` modification date in `app/sitemap.ts` when the index changes. Re-check the facts in the top-10 post every few months and bump its `updated` date. Good topics:
 
 - *Vastu tips for a 2BHK or 3BHK flat in Ahmedabad* (vastu is a strong local search)
 - *Best curtain fabrics for Ahmedabad summers* (heat, dust, west-facing rooms)
-- *Zebra blinds vs curtains: which suits which room*
 - *Interior design cost guide for a 2BHK/3BHK in Ahmedabad*, with honest ranges
 - *Project pages*, one per finished home: area, flat size, before/after photos, what was made, and a client quote. These are the most persuasive pages a design studio can have, and each one ranks for its locality ("interior design Vastral 3BHK").
 
