@@ -18,7 +18,7 @@ export const studio = {
   mapsUrl: "https://maps.app.goo.gl/sBaKfDP6giR5Kubi8",
   mapsCid: "https://maps.google.com/?cid=6625692410013709950",
   mapsEmbed:
-    "https://maps.google.com/maps?q=Mankrruuti%20Design%20Studio%2C%20Radhe%20Parisar%2C%20Hathijan%2C%20Ahmedabad%20382445&z=16&output=embed",
+    "https://maps.google.com/maps?cid=6625692410013709950&z=16&output=embed",
   foundingDate: "2025-04-30",
   // Localities the studio regularly works in; used in structured data and llms.txt.
   nearbyAreas: ["Hathijan", "Vatva", "Narol", "Isanpur", "Ramol", "Maninagar", "CTM", "Vastral"],
